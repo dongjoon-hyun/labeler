@@ -1,0 +1,35 @@
+name: master
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Scala/Java/Python/R and License/Dependency
+    steps:
+    - uses: actions/checkout@master
+      uses: actions/setup-java@v1
+      with:
+        java-version: '8'
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+        architecture: 'x64'
+    - name: Scala
+      run: ./dev/lint-scala
+    - name: Java
+      run: ./dev/lint-java
+    - name: Python
+      run: |
+        pip install flake8 sphinx
+        ./dev/lint-python
+    - name: License
+      run: ./dev/check-license
+    - name: License
+      run: ./dev/test-dependencies.sh
