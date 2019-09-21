@@ -31,5 +31,5 @@ jobs:
         ./dev/lint-python
     - name: License
       run: ./dev/check-license
-    - name: License
+    - name: Dependencies
       run: ./dev/test-dependencies.sh
